@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Selfavia — поиск маршрута</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<header><nav><a class="brand" href="/" aria-label="Selfavia — главная"><img src="/static/logo.png" alt="Selfavia"></a><a href="#how">Как это работает</a></nav>
+<main><form id="search" novalidate>
+<label class="route-label">Маршрут <select id="type"><option value="oneway">В одну сторону</option><option value="return">Туда-обратно</option><option value="multi">Сложный маршрут</option></select></label>
+<div class="searchline"><div id="legs"></div><div id="travellers" class="field"><label for="traveller-toggle">Пассажиры</label><button type="button" id="traveller-toggle" aria-expanded="false">1 взрослый · Эконом</button></div><button class="primary" type="submit">Искать</button></div>
+<div class="actions"><button id="add" type="button" hidden>+ Добавить перелёт</button></div>
+<div id="message" role="status" aria-live="polite"></div>
+</form></main></header>
+<section class="content"><div class="section-title" id="how"><h2>От маршрута до оформления</h2><span>Всё в одном месте</span></div>
+<div class="features"><div><span class="feature-icon">↗</span><h3>Выберите направление</h3><p>Город целиком или конкретный аэропорт. Подсказки понимают русский и английский.</p></div><div><span class="feature-icon">⇄</span><h3>Соберите свою поездку</h3><p>В одну сторону, туда-обратно или несколько городов в одном маршруте.</p></div><div><span class="feature-icon">▤</span><h3>Проверьте детали</h3><p>Все выбранные направления и даты собраны в общей сводке.</p></div></div>
+<p class="status">Предварительная версия: доступны 8 городов. Подключение поиска рейсов — следующий этап.</p>
+<article id="selection" hidden><h2>Ваш маршрут</h2><div id="summary"></div><p>Форма готова к подключению поиска рейсов. Сейчас доступны выбор аэропортов и проверка маршрута.</p></article></section>
+<script src="/static/pickers.js"></script><script src="/static/app.js"></script></body></html>

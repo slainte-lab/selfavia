@@ -1,0 +1,163 @@
+[
+  {
+    "id": "IST,SAW",
+    "label": "Стамбул — все аэропорты",
+    "country": "Турция",
+    "search": "Стамбул Istanbul",
+    "kind": "city"
+  },
+  {
+    "id": "IST",
+    "label": "Стамбул · Стамбул (IST)",
+    "country": "Турция",
+    "search": "Стамбул Istanbul Стамбул IST",
+    "kind": "airport"
+  },
+  {
+    "id": "SAW",
+    "label": "Стамбул · Сабиха Гёкчен (SAW)",
+    "country": "Турция",
+    "search": "Стамбул Istanbul Сабиха Гёкчен SAW",
+    "kind": "airport"
+  },
+  {
+    "id": "MXP,LIN,BGY",
+    "label": "Милан — все аэропорты",
+    "country": "Италия",
+    "search": "Милан Milan",
+    "kind": "city"
+  },
+  {
+    "id": "MXP",
+    "label": "Милан · Мальпенса (MXP)",
+    "country": "Италия",
+    "search": "Милан Milan Мальпенса MXP",
+    "kind": "airport"
+  },
+  {
+    "id": "LIN",
+    "label": "Милан · Линате (LIN)",
+    "country": "Италия",
+    "search": "Милан Milan Линате LIN",
+    "kind": "airport"
+  },
+  {
+    "id": "BGY",
+    "label": "Милан · Бергамо (BGY)",
+    "country": "Италия",
+    "search": "Милан Milan Бергамо BGY",
+    "kind": "airport"
+  },
+  {
+    "id": "BER",
+    "label": "Берлин — все аэропорты",
+    "country": "Германия",
+    "search": "Берлин Berlin",
+    "kind": "city"
+  },
+  {
+    "id": "BER",
+    "label": "Берлин · Бранденбург (BER)",
+    "country": "Германия",
+    "search": "Берлин Berlin Бранденбург BER",
+    "kind": "airport"
+  },
+  {
+    "id": "SVO,DME,VKO",
+    "label": "Москва — все аэропорты",
+    "country": "Россия",
+    "search": "Москва Moscow",
+    "kind": "city"
+  },
+  {
+    "id": "SVO",
+    "label": "Москва · Шереметьево (SVO)",
+    "country": "Россия",
+    "search": "Москва Moscow Шереметьево SVO",
+    "kind": "airport"
+  },
+  {
+    "id": "DME",
+    "label": "Москва · Домодедово (DME)",
+    "country": "Россия",
+    "search": "Москва Moscow Домодедово DME",
+    "kind": "airport"
+  },
+  {
+    "id": "VKO",
+    "label": "Москва · Внуково (VKO)",
+    "country": "Россия",
+    "search": "Москва Moscow Внуково VKO",
+    "kind": "airport"
+  },
+  {
+    "id": "LED",
+    "label": "Санкт-Петербург — все аэропорты",
+    "country": "Россия",
+    "search": "Санкт-Петербург Saint Petersburg",
+    "kind": "city"
+  },
+  {
+    "id": "LED",
+    "label": "Санкт-Петербург · Пулково (LED)",
+    "country": "Россия",
+    "search": "Санкт-Петербург Saint Petersburg Пулково LED",
+    "kind": "airport"
+  },
+  {
+    "id": "VNO",
+    "label": "Вильнюс — все аэропорты",
+    "country": "Литва",
+    "search": "Вильнюс Vilnius",
+    "kind": "city"
+  },
+  {
+    "id": "VNO",
+    "label": "Вильнюс · Вильнюс (VNO)",
+    "country": "Литва",
+    "search": "Вильнюс Vilnius Вильнюс VNO",
+    "kind": "airport"
+  },
+  {
+    "id": "CDG,ORY",
+    "label": "Париж — все аэропорты",
+    "country": "Франция",
+    "search": "Париж Paris",
+    "kind": "city"
+  },
+  {
+    "id": "CDG",
+    "label": "Париж · Шарль-де-Голль (CDG)",
+    "country": "Франция",
+    "search": "Париж Paris Шарль-де-Голль CDG",
+    "kind": "airport"
+  },
+  {
+    "id": "ORY",
+    "label": "Париж · Орли (ORY)",
+    "country": "Франция",
+    "search": "Париж Paris Орли ORY",
+    "kind": "airport"
+  },
+  {
+    "id": "FCO,CIA",
+    "label": "Рим — все аэропорты",
+    "country": "Италия",
+    "search": "Рим Rome",
+    "kind": "city"
+  },
+  {
+    "id": "FCO",
+    "label": "Рим · Фьюмичино (FCO)",
+    "country": "Италия",
+    "search": "Рим Rome Фьюмичино FCO",
+    "kind": "airport"
+  },
+  {
+    "id": "CIA",
+    "label": "Рим · Чампино (CIA)",
+    "country": "Италия",
+    "search": "Рим Rome Чампино CIA",
+    "kind": "airport"
+  }
+]
