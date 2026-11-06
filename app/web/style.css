@@ -22,7 +22,7 @@ font-family:'Segoe UI',Arial,sans-serif;color:var(--text);background:var(--bg)
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 header{background:var(--bg-soft);color:var(--text);padding:0 max(24px,calc((100vw - 1120px)/2)) 42px}
 nav{height:86px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);margin-bottom:24px}nav>a:last-child{color:var(--accent-text);font-size:13px;text-decoration:none}
-/* TODO: replace logo.png with a light-background logo (dark wordmark and tagline). Keep the original PNG unchanged; no filters or inversion. */
+/* Light-theme PNG uses native transparency; original logo.png is retained. */
 .brand{display:block;position:relative;width:218px;height:65px;overflow:hidden;flex-shrink:0}.brand img{position:absolute;width:278px;max-width:none;left:-32px;top:-74px;mix-blend-mode:normal}
 #search{padding:18px;border:1px solid var(--border);background:var(--surface);border-radius:14px;box-shadow:var(--shadow)}
 .route-label{display:inline-flex;gap:10px;align-items:center;font-size:12px;margin-bottom:14px}#type{padding:6px 9px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font-size:12px}#type option{background:var(--surface)}
