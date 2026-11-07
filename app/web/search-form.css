@@ -1,8 +1,9 @@
 /* Search-form-only presentation; page palette and surrounding sections stay unchanged. */
-#search .route-control{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;font-size:12px}
-#search .route-segments{display:flex;gap:4px;flex-wrap:wrap}
-#search .route-segments button{height:40px;padding:0 14px;border:1px solid transparent;border-radius:999px;background:transparent;color:var(--text);font-size:12px}
-#search .route-segments button:hover{border-color:var(--border-strong)}
+#search .route-control{display:flex;margin-bottom:16px}
+#search .route-segments{display:flex;gap:2px;max-width:100%;overflow-x:auto;padding:4px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
+#search .route-segments button{flex:none;height:36px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:var(--text);font-size:14px;white-space:nowrap}
+#search .route-segments button[aria-checked="false"]:hover{background:var(--bg-soft)}
+#search .route-segments button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 #search .route-segments button[aria-checked="true"]{background:var(--text);color:#FFFFFF}
 #search .field{height:56px;min-height:56px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
 #search .field:hover{border-color:var(--border-strong)}
