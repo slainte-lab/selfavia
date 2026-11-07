@@ -39,25 +39,34 @@ function locationField(label) {
           button.addEventListener('click', () => {
             input.value = item.label;
             input.dataset.location = item.id;
+            clearFieldError(input);
             suggestions.hidden = true;
+            input.focus();
           });
           suggestions.append(button);
         }
-        suggestions.hidden = items.length === 0;
+        if (!items.length && input.value.trim().length >= 2) {
+          const empty = document.createElement('div');
+          empty.className = 'suggestions-empty';
+          empty.setAttribute('role', 'status');
+          empty.textContent = 'Ничего не найдено';
+          suggestions.append(empty);
+        }
+        suggestions.hidden = !suggestions.childElementCount;
       } catch {
         message.textContent = 'Не удалось загрузить справочник. Попробуйте ещё раз.';
       }
     }, 150);
   });
   field.addEventListener('keydown', event => {
-    if (event.key === 'Escape') suggestions.hidden = true;
+    if (event.key === 'Escape') { suggestions.hidden = true; input.focus(); }
     if (['ArrowDown', 'ArrowUp'].includes(event.key)) {
       const options = [...suggestions.querySelectorAll('button')];
       if (!options.length || suggestions.hidden) return;
       event.preventDefault();
       const direction = event.key === 'ArrowDown' ? 1 : -1;
       const index = options.indexOf(document.activeElement);
-      options[(index + direction + options.length) % options.length]?.focus();
+      options[index < 0 ? (direction > 0 ? 0 : options.length - 1) : (index + direction + options.length) % options.length]?.focus();
     }
     if (event.key === 'Enter' && event.target === input && !suggestions.hidden) {
       event.preventDefault();
@@ -133,13 +142,13 @@ document.querySelector('#search').addEventListener('submit', event => {
     const dates = [...row.querySelectorAll('.date-field')].map(field => field.dataset.value);
     if (!origin.dataset.location || !destination.dataset.location || origin.dataset.location === destination.dataset.location) {
       if (!origin.dataset.location) fieldError(origin, 'Укажите город вылета');
-      else if (!destination.dataset.location) fieldError(destination, 'Укажите город прибытия');
+      else if (!destination.dataset.location) fieldError(destination, 'Укажите город прилёта');
       else fieldError(destination, 'Выберите другой город прибытия');
       return;
     }
     for (const [index, date] of dates.entries()) {
       if (!date || date < previousDate) {
-        fieldError(row.querySelectorAll('.date-toggle')[index], !date ? 'Укажите дату перелёта' : 'Дата раньше предыдущего перелёта');
+        fieldError(row.querySelectorAll('.date-toggle')[index], !date ? 'Выберите дату' : 'Дата раньше предыдущего перелёта');
         return;
       }
       previousDate = date;
@@ -176,3 +185,37 @@ function fieldError(input, text) {
   input.focus();
 }
 
+
+// Keep the existing route change handler as the single source of form state.
+const routeButtons = [...document.querySelectorAll('[data-route]')];
+function syncRouteButtons() {
+  routeButtons.forEach(button => {
+    const selected = button.dataset.route === type.value;
+    button.setAttribute('aria-checked', String(selected));
+    button.tabIndex = selected ? 0 : -1;
+  });
+}
+routeButtons.forEach((button, index) => {
+  button.onclick = () => {
+    if (type.value !== button.dataset.route) {
+      type.value = button.dataset.route;
+      type.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    syncRouteButtons();
+  };
+  button.onkeydown = event => {
+    const direction = {ArrowRight:1, ArrowDown:1, ArrowLeft:-1, ArrowUp:-1}[event.key];
+    if (!direction) return;
+    event.preventDefault();
+    const next = routeButtons[(index + direction + routeButtons.length) % routeButtons.length];
+    next.click();
+    next.focus();
+  };
+});
+type.addEventListener('change', syncRouteButtons);
+
+function clearFieldError(input) {
+  input.closest('.field')?.querySelector('.field-error')?.remove();
+  input.removeAttribute('aria-invalid');
+  input.removeAttribute('aria-describedby');
+}

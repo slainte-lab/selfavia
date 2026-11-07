@@ -1,0 +1,72 @@
+/* Search-form-only presentation; page palette and surrounding sections stay unchanged. */
+#search .route-control{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;font-size:12px}
+#search .route-segments{display:flex;gap:4px;flex-wrap:wrap}
+#search .route-segments button{height:40px;padding:0 14px;border:1px solid transparent;border-radius:999px;background:transparent;color:var(--text);font-size:12px}
+#search .route-segments button:hover{border-color:var(--border-strong)}
+#search .route-segments button[aria-checked="true"]{background:var(--text);color:#FFFFFF}
+#search .field{height:56px;min-height:56px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+#search .field:hover{border-color:var(--border-strong)}
+#search .field:focus-within{border-color:var(--focus);outline:2px solid var(--focus);outline-offset:2px}
+#search .field>label{font-size:12px;line-height:14px;margin:0 0 2px;color:var(--text-muted)}
+#search .field>input,#search .date-toggle,#search #traveller-toggle{font-size:16px;line-height:20px;padding:0;color:var(--text);height:20px}
+#search .field>input::placeholder{color:var(--text-muted)}
+#search .primary{height:56px;border-radius:8px}
+#search .leg{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px;gap:8px}
+#search .leg.roundtrip{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 140px}
+#search .leg:has(.remove){grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 24px}
+#search #travellers{width:190px}
+#search .field:has([aria-invalid="true"]){border-color:var(--error);margin-bottom:32px}
+#search .field-error{position:absolute;top:100%;left:0;font-size:13px;line-height:16px;color:var(--error);margin:4px 0 0}
+#search .date-field:has(.field-error){position:relative}
+#search .suggestions{border:1px solid var(--border);background:var(--surface)}
+#search .suggestions button:focus,#search .suggestions button:hover{background:var(--selected)}
+#search .suggestions small{color:var(--text-muted)}
+#search .suggestions-empty{padding:11px 13px;color:var(--text-muted);font-size:13px}
+#search .picker{border-color:var(--border);background:var(--surface);box-shadow:var(--shadow)}
+#search .calendar{width:286px;padding:8px;max-width:calc(100vw - 48px)}
+#search .air-datepicker{
+--adp-width:268px;
+--adp-font-family:inherit;
+--adp-background-color:var(--surface);
+--adp-border-color:var(--border);
+--adp-border-color-inner:var(--border);
+--adp-color:var(--text);
+--adp-color-secondary:var(--text-muted);
+--adp-color-disabled:var(--text-muted);
+--adp-color-other-month:var(--text-muted);
+--adp-color-current-date:var(--text);
+--adp-day-name-color:var(--text-muted);
+--adp-cell-background-color-hover:var(--selected);
+--adp-cell-background-color-selected:var(--accent);
+--adp-cell-background-color-selected-hover:var(--accent-hover);
+--adp-cell-background-color-in-range:var(--selected);
+--adp-cell-background-color-in-range-hover:var(--selected);
+--adp-cell-background-color-in-range-focused:var(--selected);
+--adp-cell-border-color-in-range:var(--border-strong);
+--adp-nav-color-secondary:var(--text-muted);
+--adp-nav-arrow-color:var(--text);
+--adp-nav-action-size:32px;
+--adp-background-color-hover:var(--selected);
+--adp-background-color-active:var(--selected);
+border:0;width:100%;max-width:100%
+}
+#search .air-datepicker-cell.-selected-{color:var(--on-accent)}
+#search .air-datepicker-cell.-current-{border:1px solid var(--border-strong)}
+#search .air-datepicker-cell.-disabled-{opacity:.55}
+#search .air-datepicker-cell.-focus-{outline:2px solid var(--focus);outline-offset:-2px}
+#search .passengers{width:310px;max-width:calc(100vw - 74px)}
+#search .passengers .primary{height:56px}
+#search :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media(max-width:768px){
+#search .searchline{display:flex;flex-direction:column;align-items:stretch}
+#search #legs{width:100%;flex-basis:auto}
+#search .leg,#search .leg.roundtrip,#search .leg:has(.remove){grid-template-columns:minmax(0,1fr)}
+#search .field:has(input),#search .remove{grid-column:1}
+#search #travellers{width:100%;flex:auto}
+#search .searchline>.primary{width:100%;height:56px}
+#search .date-field{position:relative}
+#search .calendar{top:calc(100% + 8px);left:0;right:auto;width:286px;max-width:calc(100vw - 74px)}
+#search .passengers{top:calc(100% + 8px);left:0;right:auto}
+}
+/* The page's global nav rule must not size the calendar navigation. */
+#search .air-datepicker-nav{height:auto;min-height:32px;margin:0;padding:4px;border-bottom:1px solid var(--border)}

@@ -3,6 +3,7 @@ let activePopup;
 let popupTrigger;
 
 function closePopup() {
+  activePopup?.cleanup?.();
   activePopup?.remove();
   popupTrigger?.setAttribute('aria-expanded', 'false');
   activePopup = null;
@@ -49,57 +50,99 @@ function dateField(label, minimum, onSelect) {
   field.append(caption, trigger);
   field.setDate = value => {
     field.dataset.value = value;
+    if (value) clearFieldError(trigger);
     trigger.textContent = value ? new Date(value + 'T12:00:00').toLocaleDateString('ru-RU', {day:'numeric', month:'short'}) : 'Выберите дату';
   };
+  field.minimum = minimum;
+  field.onDateSelect = onSelect;
   trigger.addEventListener('click', () => {
     const popup = openPopup(trigger, 'calendar');
-    const min = minimum();
-    let month = new Date((field.dataset.value || min) + 'T12:00:00');
-    month.setDate(1);
-    function render() {
-      popup.replaceChildren();
-      const navigation = document.createElement('div');
-      navigation.className = 'calendar-nav';
-      for (const [offset, label] of [[-1, 'Предыдущий месяц'], [1, 'Следующий месяц']]) {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.textContent = offset < 0 ? '‹' : '›';
-        button.setAttribute('aria-label', label);
-        button.disabled = offset < 0 && dateKey(month).slice(0,7) <= min.slice(0,7);
-        button.onclick = () => { month.setMonth(month.getMonth() + offset); render(); };
-        navigation.append(button);
-      }
-      popup.append(navigation);
-      const months = document.createElement('div');
-      months.className = 'months';
-      for (let offset = 0; offset < 2; offset++) {
-        const current = new Date(month.getFullYear(), month.getMonth() + offset, 1);
-        const section = document.createElement('section');
-        const heading = document.createElement('h3');
-        heading.textContent = current.toLocaleDateString('ru-RU', {month:'long', year:'numeric'});
-        section.append(heading);
-        const grid = document.createElement('div');
-        grid.className = 'days';
-        for (const name of ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']) {
-          const weekday = document.createElement('span'); weekday.textContent = name; grid.append(weekday);
+    const row = field.closest('.leg');
+    const range = row.classList.contains('roundtrip');
+    const fields = range ? [...row.querySelectorAll('.date-field')] : [field];
+    const min = fields[0].minimum();
+    const selectedDates = fields.map(item => item.dataset.value).filter(Boolean).map(value => new Date(value + 'T12:00:00'));
+    const host = document.createElement('div');
+    host.tabIndex = 0;
+    popup.append(host);
+    let focusedDate = new Date((field.dataset.value || min) + 'T12:00:00');
+    let ready = false;
+    const picker = new AirDatepicker(host, {
+      inline: true,
+      range,
+      dynamicRange: false,
+      toggleSelected: false,
+      minDate: new Date(min + 'T00:00:00'),
+      startDate: focusedDate,
+      onChangeViewDate({year, month}) {
+        focusedDate = new Date(year, month, 1, 12);
+        if (dateKey(focusedDate) < min) focusedDate = new Date(min + 'T12:00:00');
+        host.setAttribute('aria-label', focusedDate.toLocaleDateString('ru-RU', {day:'numeric',month:'long',year:'numeric'}));
+      },
+      // Air Datepicker's bundled default locale is Russian.
+      onSelect({date}) {
+        if (!ready) return;
+        const dates = Array.isArray(date) ? date : [date];
+        fields.forEach((item, index) => {
+          const value = dates[index] ? dateKey(dates[index]) : '';
+          item.setDate(value);
+          if (value) item.onDateSelect?.(value);
+        });
+        if (!range || dates.length === 2) {
+          queueMicrotask(() => {
+            if (activePopup === popup) { closePopup(); trigger.focus(); }
+          });
         }
-        for (let i = 0; i < (current.getDay() + 6) % 7; i++) grid.append(document.createElement('span'));
-        const count = new Date(current.getFullYear(), current.getMonth()+1,0).getDate();
-        for (let day = 1; day <= count; day++) {
-          const value = dateKey(new Date(current.getFullYear(), current.getMonth(), day));
-          const button = document.createElement('button');
-          button.type = 'button'; button.textContent = day;
-          button.setAttribute('aria-label', value);
-          button.disabled = value < min;
-          button.classList.toggle('selected', value === field.dataset.value);
-          button.onclick = () => { field.setDate(value); closePopup(); trigger.focus(); onSelect?.(value); };
-          grid.append(button);
-        }
-        section.append(grid); months.append(section);
       }
-      popup.append(months);
+    });
+    if (selectedDates.length) picker.selectDate(selectedDates, {silent:true});
+    ready = true;
+    function focusDate(date) {
+      if (dateKey(date) < min) date = new Date(min + 'T12:00:00');
+      focusedDate = date;
+      picker.setFocusDate(date, {viewDateTransition:true});
+      host.setAttribute('aria-label', date.toLocaleDateString('ru-RU', {day:'numeric',month:'long',year:'numeric'}));
     }
-    render();
+    focusDate(focusedDate);
+    host.addEventListener('keydown', event => {
+      if (event.target !== host) return;
+      const shift = {ArrowLeft:-1, ArrowRight:1, ArrowUp:-7, ArrowDown:7}[event.key];
+      if (shift) {
+        event.preventDefault();
+        const date = new Date(focusedDate);
+        date.setDate(date.getDate() + shift);
+        focusDate(date);
+      } else if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        picker.selectDate(focusedDate);
+      }
+    });
+    function enableNavKeyboard() {
+      host.querySelectorAll('.air-datepicker-nav--action,.air-datepicker-nav--title,.air-datepicker-cell').forEach(item => {
+        const disabled = item.classList.contains('-disabled-');
+        const day = item.classList.contains('-day-');
+        item.tabIndex = disabled || day ? -1 : 0;
+        item.setAttribute('role','button');
+        item.setAttribute('aria-disabled', String(disabled));
+        if (item.dataset.action) item.setAttribute('aria-label', item.dataset.action === 'prev' ? 'Предыдущий месяц' : 'Следующий месяц');
+        item.onkeydown = event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            if (!disabled) {
+              item.click();
+              if (!item.isConnected || item.classList.contains('air-datepicker-cell')) host.focus();
+            }
+          }
+        };
+      });
+    }
+    // Day navigation is handled by the focusable calendar host; keep month/year
+    // navigation accessible without changing the form's date buttons into inputs.
+    enableNavKeyboard();
+    const observer = new MutationObserver(enableNavKeyboard);
+    observer.observe(host, {childList:true,subtree:true});
+    popup.cleanup = () => { observer.disconnect(); picker.destroy(); };
+    host.focus();
   });
   return field;
 }
@@ -125,6 +168,9 @@ travellerToggle.onclick = () => {
           else if (delta > 0) draft.ages.push('');
           else draft.ages.pop();
           render();
+          const controls = [...popup.querySelectorAll('.counter button')];
+          const replacement = controls.find(item => item.getAttribute('aria-label') === button.getAttribute('aria-label'));
+          (replacement?.disabled ? controls.find(item => !item.disabled && item.closest('.counter') === replacement.closest('.counter')) : replacement)?.focus();
         };
         row.append(button);
       }

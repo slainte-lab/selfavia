@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ru">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Selfavia — поиск маршрута</title><link rel="stylesheet" href="/static/style.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Selfavia — поиск маршрута</title><link rel="stylesheet" href="/static/vendor/air-datepicker/air-datepicker.css"><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/search-form.css"></head>
 <body>
 <header><nav><a class="brand" href="/" aria-label="Selfavia — главная"><img src="/static/logo-light.png" alt="Selfavia"></a><a href="#how">Как это работает</a></nav>
 <main>
@@ -9,7 +9,15 @@
 <p>Оформите подтверждённое бронирование для визовой заявки.</p>
 </section>
 <form id="search" novalidate>
-<label class="route-label">Маршрут <select id="type"><option value="oneway">В одну сторону</option><option value="return">Туда-обратно</option><option value="multi">Сложный маршрут</option></select></label>
+<div class="route-control">
+<span id="route-label">Маршрут</span>
+<select id="type" hidden aria-hidden="true" tabindex="-1"><option value="oneway">В одну сторону</option><option value="return">Туда-обратно</option><option value="multi">Сложный маршрут</option></select>
+<div class="route-segments" role="radiogroup" aria-labelledby="route-label">
+<button type="button" role="radio" aria-checked="true" tabindex="0" data-route="oneway">В одну сторону</button>
+<button type="button" role="radio" aria-checked="false" tabindex="-1" data-route="return">Туда-обратно</button>
+<button type="button" role="radio" aria-checked="false" tabindex="-1" data-route="multi">Сложный маршрут</button>
+</div>
+</div>
 <div class="searchline"><div id="legs"></div><div id="travellers" class="field"><label for="traveller-toggle">Пассажиры</label><button type="button" id="traveller-toggle" aria-expanded="false">1 взрослый · Эконом</button></div><button class="primary" type="submit">Искать</button></div>
 <div class="actions"><button id="add" type="button" hidden>+ Добавить перелёт</button></div>
 <div id="message" role="status" aria-live="polite"></div>
@@ -18,4 +26,4 @@
 <div class="features"><div><span class="feature-icon">↗</span><h3>Выберите направление</h3><p>Город целиком или конкретный аэропорт. Подсказки понимают русский и английский.</p></div><div><span class="feature-icon">⇄</span><h3>Соберите свою поездку</h3><p>В одну сторону, туда-обратно или несколько городов в одном маршруте.</p></div><div><span class="feature-icon">▤</span><h3>Проверьте детали</h3><p>Все выбранные направления и даты собраны в общей сводке.</p></div></div>
 <p class="status">Предварительная версия: доступны 8 городов. Подключение поиска рейсов — следующий этап.</p>
 <article id="selection" hidden><h2>Ваш маршрут</h2><div id="summary"></div><p>Форма готова к подключению поиска рейсов. Сейчас доступны выбор аэропортов и проверка маршрута.</p></article></section>
-<script src="/static/pickers.js"></script><script src="/static/app.js"></script></body></html>
+<script src="/static/vendor/air-datepicker/air-datepicker.js"></script><script src="/static/pickers.js"></script><script src="/static/app.js"></script></body></html>
