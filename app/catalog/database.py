@@ -54,16 +54,19 @@ def search(dsn, variants):
     with psycopg.connect(dsn, row_factory=dict_row, connect_timeout=5) as conn:
         return conn.execute("""
             WITH locations AS (
-                SELECT c.city_id AS pos, string_agg(a.iata, ',' ORDER BY a.position) AS id,
+                SELECT c.city_id AS grp, -1 AS pos, string_agg(a.iata, ',' ORDER BY a.position) AS id,
                        c.label, c.country, c.aliases, 'city' AS kind
                 FROM catalog.city c JOIN catalog.airport a USING(city_id)
                 GROUP BY c.city_id
                 UNION ALL
-                SELECT a.position, a.iata, a.label, c.country, a.aliases, 'airport'
+                SELECT c.city_id, a.position, a.iata, a.label, c.country, a.aliases, 'airport'
                 FROM catalog.airport a JOIN catalog.city c USING(city_id)
             )
             SELECT id,label,country,kind FROM locations
             WHERE EXISTS (SELECT FROM unnest(%s::text[]) q
                           WHERE strpos(aliases || ' ' || lower(id), q) > 0)
-            ORDER BY pos LIMIT 12
-        """, (variants,)).fetchall()
+            ORDER BY CASE WHEN lower(id)=ANY(%s::text[]) THEN 0
+                          WHEN EXISTS (SELECT FROM unnest(%s::text[]) q WHERE strpos(' | ' || aliases || ' | ', ' | ' || q || ' | ') > 0) THEN 1
+                          WHEN EXISTS (SELECT FROM unnest(%s::text[]) q WHERE strpos(' | ' || aliases, ' | ' || q) > 0) THEN 2
+                          ELSE 3 END, grp,pos LIMIT 12
+        """, (variants, variants, variants, variants)).fetchall()
