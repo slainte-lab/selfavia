@@ -178,7 +178,8 @@ function fieldError(input, text) {
   const error = document.createElement('p');
   error.className = 'field-error';
   error.id = `error-${nextId++}`;
-  error.textContent = `! ${text}`;
+  error.innerHTML = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor"><circle cx="7" cy="7" r="6"/><path d="M7 3.5v4.5m0 1v1.5"/></svg>';
+  error.append(text);
   input.closest('.field').append(error);
   input.setAttribute('aria-invalid', 'true');
   input.setAttribute('aria-describedby', error.id);
