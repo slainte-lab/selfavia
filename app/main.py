@@ -5,8 +5,10 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.catalog.service import suggest
+from app.flights.service import router as flights_router
 
 app = FastAPI(title='Selfavia')
+app.include_router(flights_router)
 WEB = Path(__file__).parent / 'web'
 app.mount('/static', StaticFiles(directory=WEB), name='static')
 

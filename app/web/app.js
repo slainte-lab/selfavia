@@ -158,15 +158,10 @@ document.querySelector('#search').addEventListener('submit', event => {
       }
       previousDate = date;
     }
-    route.push(`${origin.value} → ${destination.value} · ${dates[0]}`);
-    if (type.value === 'return') route.push(`${destination.value} → ${origin.value} · ${dates[1]}`);
+    route.push({origin:origin.dataset.location, destination:destination.dataset.location, date:dates[0]});
+    if (type.value === 'return') route.push({origin:destination.dataset.location, destination:origin.dataset.location, date:dates[1]});
   }
-  const summary = document.querySelector('#summary'); summary.replaceChildren();
-  for (const line of route) { const p = document.createElement('p'); p.textContent = line; summary.append(p); }
-  const passengers = document.createElement('p');
-  passengers.textContent = `Взрослых: ${passengerState.adults}, детей: ${passengerState.ages.length}. Эконом.`;
-  summary.append(passengers);
-  document.querySelector('#selection').hidden = false;
+  startFlightSearch({mode:type.value, legs:route, adults:passengerState.adults, ages:[...passengerState.ages]});
 });
 addLeg();
 

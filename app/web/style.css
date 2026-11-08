@@ -113,3 +113,7 @@ input,select,textarea{font-weight:500}
 label{font-weight:400}
 h1,h2,h3,.air-datepicker-nav--title{font-family:var(--font-display);letter-spacing:0}
 h2,h3,.air-datepicker-nav--title{font-weight:500}
+.flight-option{display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--border)}
+.flight-option p,.flight-details{white-space:pre-line;line-height:1.5}
+.flight-option p{flex:1 1 280px;margin:0}
+.flight-option button{border:1px solid var(--border);border-radius:8px;padding:8px 12px;background:var(--surface);color:var(--accent-text)}
