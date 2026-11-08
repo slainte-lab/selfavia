@@ -11,9 +11,9 @@
 #search .field>label{font-size:12px;line-height:14px;margin:0 0 2px;color:var(--text-muted)}
 #search .field>input,#search .date-toggle,#search #traveller-toggle{font-size:16px;font-weight:500;line-height:20px;padding:0;color:var(--text);height:20px}
 #search .field>:is(input,.date-toggle,#traveller-toggle){outline:none;box-shadow:none;border:0;background:transparent;border-radius:inherit}
-#search .field>input::placeholder{color:var(--text-muted)}
+#search .field>input::placeholder{color:var(--text-muted);font-weight:400}
 #search .primary{height:56px;border-radius:8px}
-#search .searchline>.primary{flex:0 0 auto;min-width:148px;padding:0 28px;font-size:16px;font-weight:600;color:var(--on-accent);white-space:nowrap}
+#search .searchline>.primary{flex:0 0 auto;min-width:132px;padding:0 24px;font-size:16px;font-weight:600;color:var(--on-accent);white-space:nowrap}
 #search .leg{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px;gap:8px}
 #search .leg.roundtrip{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 140px}
 #search .leg:has(.remove){grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 24px}
@@ -90,4 +90,26 @@ border:0;width:100%;max-width:100%
 @media(max-width:480px){
   #search .route-segments{width:100%;flex-wrap:wrap;overflow:visible;border-radius:20px}
   #search .route-segments button{flex:1 1 auto;min-width:0}
+}
+
+#search .date-field[data-empty="true"]>.date-toggle{color:var(--text-muted);font-weight:400}
+#search .field>:is(input,.date-toggle,#traveller-toggle){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+@media(min-width:769px){
+  #search .field{padding-inline:14px}
+  #search .searchline:not(:has(.remove)){
+    display:grid;
+    gap:8px;
+    grid-template-columns:minmax(0,1.4fr) minmax(0,1.4fr) minmax(150px,1fr) minmax(200px,1.1fr) auto;
+  }
+  #search .searchline:has(.roundtrip){
+    grid-template-columns:minmax(0,1.3fr) minmax(0,1.3fr) minmax(140px,1fr) minmax(140px,1fr) minmax(200px,1.1fr) auto;
+  }
+  #search .searchline:not(:has(.remove)) :is(#legs,.leg){display:contents}
+  #search .searchline:not(:has(.remove)) #travellers{width:auto}
+}
+@media(min-width:769px) and (max-width:900px){
+  #search .searchline:not(:has(.remove)){grid-template-columns:minmax(140px,1fr) minmax(140px,1fr) minmax(200px,1.1fr) auto}
+  #search .searchline:not(:has(.remove)) .field:has(>input){grid-column:span 2}
+  #search .searchline:not(:has(.remove,.roundtrip)) .date-field{grid-column:span 2}
 }

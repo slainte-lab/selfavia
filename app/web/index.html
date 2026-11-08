@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Onest:wght@500;700&amp;subset=cyrillic,latin&amp;display=swap">
 <link rel="stylesheet" href="/static/vendor/air-datepicker/air-datepicker.css"><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/search-form.css"></head>
 <body>
-<header><nav><a class="brand" href="/" aria-label="Selfavia — главная"><picture><source media="(max-width:700px)" srcset="/static/logo-light-compact.png"><img src="/static/logo-light.png" alt="Selfavia"></picture></a><a href="#how">Как это работает</a></nav>
-<main>
+<header><nav class="container"><a class="brand" href="/" aria-label="Selfavia — главная"><picture><source media="(max-width:700px)" srcset="/static/logo-light-compact.png"><img src="/static/logo-light.png" alt="Selfavia"></picture></a><a href="#how">Как это работает</a></nav>
+<main class="container">
 <section class="hero" aria-labelledby="hero-title">
 <h1 id="hero-title">Бронь авиабилета для визы за 5 минут.</h1>
 <p>Оформите подтверждённое бронирование для визовой заявки.</p>
@@ -25,7 +25,7 @@
 <div class="actions"><button id="add" type="button" hidden>+ Добавить перелёт</button></div>
 <div id="message" role="status" aria-live="polite"></div>
 </form></main></header>
-<section class="content"><div class="section-title" id="how"><h2>От маршрута до оформления</h2><span>Всё в одном месте</span></div>
+<section class="container content"><div class="section-title" id="how"><h2>От маршрута до оформления</h2><span>Всё в одном месте</span></div>
 <div class="features"><div><span class="feature-icon">↗</span><h3>Выберите направление</h3><p>Город целиком или конкретный аэропорт. Подсказки понимают русский и английский.</p></div><div><span class="feature-icon">⇄</span><h3>Соберите свою поездку</h3><p>В одну сторону, туда-обратно или несколько городов в одном маршруте.</p></div><div><span class="feature-icon">▤</span><h3>Проверьте детали</h3><p>Все выбранные направления и даты собраны в общей сводке.</p></div></div>
 <p class="status">Предварительная версия: доступны 8 городов. Подключение поиска рейсов — следующий этап.</p>
 <article id="selection" hidden><h2>Ваш маршрут</h2><div id="summary"></div><p>Форма готова к подключению поиска рейсов. Сейчас доступны выбор аэропортов и проверка маршрута.</p></article></section>

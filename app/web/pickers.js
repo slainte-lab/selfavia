@@ -39,6 +39,7 @@ function dateKey(date) {
 function dateField(label, minimum, onSelect) {
   const field = document.createElement('div');
   field.className = 'field date-field';
+  field.dataset.empty = 'true';
   const caption = document.createElement('label');
   caption.textContent = label;
   const trigger = document.createElement('button');
@@ -50,6 +51,8 @@ function dateField(label, minimum, onSelect) {
   field.append(caption, trigger);
   field.setDate = value => {
     field.dataset.value = value;
+    if (value) delete field.dataset.empty;
+    else field.dataset.empty = 'true';
     if (value) clearFieldError(trigger);
     trigger.textContent = value ? new Date(value + 'T12:00:00').toLocaleDateString('ru-RU', {day:'numeric', month:'short'}) : 'Выберите дату';
   };
