@@ -75,3 +75,18 @@ border:0;width:100%;max-width:100%
 }
 /* The page's global nav rule must not size the calendar navigation. */
 #search .air-datepicker-nav{height:auto;min-height:32px;margin:0;padding:4px;border-bottom:1px solid var(--border)}
+#search .age-select{display:block;margin-top:7px;height:48px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+#search .age-select:focus-within{border-color:var(--focus);box-shadow:0 0 0 2px var(--focus)}
+#search .age-select select{height:100%;margin:0;border:0;border-radius:inherit;background:transparent;outline:none;box-shadow:none}
+@media(max-width:768px){
+  #search .searchline,#search #legs,#search .leg{gap:12px}
+  #search #legs{display:grid}
+  #search .leg{margin-bottom:0}
+  #search .leg>.field{margin-bottom:0}
+  #search .leg>.field:has(.field-error){margin-bottom:36px}
+  #search .passengers{position:fixed;top:auto;right:auto;max-width:none;overflow-y:auto;overscroll-behavior:contain}
+}
+@media(max-width:480px){
+  #search .route-segments{width:100%;flex-wrap:wrap;overflow:visible;border-radius:20px}
+  #search .route-segments button{flex:1 1 auto;min-width:0}
+}

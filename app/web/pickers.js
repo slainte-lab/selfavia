@@ -150,6 +150,29 @@ function dateField(label, minimum, onSelect) {
 const travellerToggle = document.querySelector('#traveller-toggle');
 travellerToggle.onclick = () => {
   const popup = openPopup(travellerToggle, 'passengers');
+  const viewport = window.visualViewport;
+  function positionPanel() {
+    if (!matchMedia('(max-width:768px)').matches) {
+      popup.removeAttribute('style');
+      return;
+    }
+    const card = travellerToggle.closest('form').getBoundingClientRect();
+    const height = viewport?.height ?? innerHeight;
+    const top = viewport?.offsetTop ?? 0;
+    Object.assign(popup.style, {
+      left: card.left + 'px', width: card.width + 'px',
+      maxHeight: height + 'px', bottom: Math.max(0, innerHeight - height - top) + 'px'
+    });
+  }
+  positionPanel();
+  viewport?.addEventListener('resize', positionPanel);
+  viewport?.addEventListener('scroll', positionPanel);
+  window.addEventListener('resize', positionPanel);
+  popup.cleanup = () => {
+    viewport?.removeEventListener('resize', positionPanel);
+    viewport?.removeEventListener('scroll', positionPanel);
+    window.removeEventListener('resize', positionPanel);
+  };
   const draft = { adults: passengerState.adults, ages: [...passengerState.ages] };
   function render() {
     popup.replaceChildren();
@@ -182,7 +205,11 @@ travellerToggle.onclick = () => {
       select.add(new Option('Выберите возраст',''));
       for (let age = 0; age < 18; age++) select.add(new Option(String(age),String(age)));
       select.value = age; select.onchange = () => { draft.ages[index] = select.value; apply.disabled = draft.ages.includes(''); };
-      label.append(select); popup.append(label);
+      const wrapper = document.createElement('span');
+      wrapper.className = 'age-select';
+      wrapper.append(select);
+      label.append(wrapper);
+      popup.append(label);
     });
     const apply = document.createElement('button'); apply.type = 'button'; apply.className = 'primary'; apply.textContent = 'Применить'; apply.disabled = draft.ages.includes('');
     apply.onclick = () => {

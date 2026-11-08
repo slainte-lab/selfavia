@@ -24,6 +24,8 @@ function locationField(label) {
         const items = await response.json();
         if (current !== version) return;
         suggestions.replaceChildren();
+        const cityHeadings = new Set(items.filter(item => item.kind === 'city')
+          .map(item => item.label.split(' — ')[0]));
         for (const item of items) {
           const button = document.createElement('button');
           button.type = 'button';
@@ -31,7 +33,10 @@ function locationField(label) {
           code.textContent = item.id;
           button.append(code);
           const city = document.createElement('small');
-          city.textContent = item.label;
+          const [cityName, airport] = item.label.split(' · ');
+          city.textContent = airport && cityHeadings.has(cityName)
+            ? airport.replace(' (' + item.id + ')', '')
+            : item.label;
           button.append(city);
           const country = document.createElement('small');
           country.textContent = item.country;
