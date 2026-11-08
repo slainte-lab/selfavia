@@ -1,4 +1,5 @@
 /* Search-form-only presentation; page palette and surrounding sections stay unchanged. */
+#search{padding-block:20px}
 #search .route-control{display:flex;margin-bottom:16px}
 #search .route-segments{display:inline-flex;gap:2px;max-width:100%;overflow-x:auto;padding:4px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
 #search .route-segments button{flex:none;height:36px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:var(--text);font-size:14px;white-space:nowrap}
@@ -18,7 +19,7 @@
 #search .leg.roundtrip{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 140px}
 #search .leg:has(.remove){grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 24px}
 #search #travellers{width:190px}
-#search .leg>.field{margin-bottom:20px}
+#search .leg>.field:has(.field-error){margin-bottom:36px}
 #search .field:has([aria-invalid="true"]){border-color:var(--error)}
 #search .field:has([aria-invalid="true"]):focus-within{box-shadow:0 0 0 2px rgba(198,40,40,0.25)}
 #search .field-error{display:flex;align-items:flex-start;gap:6px;min-height:20px;position:absolute;top:100%;left:0;font-size:13px;line-height:16px;color:var(--error);margin:4px 0 0}
@@ -82,8 +83,7 @@ border:0;width:100%;max-width:100%
   #search .searchline,#search #legs,#search .leg{gap:12px}
   #search #legs{display:grid}
   #search .leg{margin-bottom:0}
-  #search .leg>.field{margin-bottom:0}
-  #search .leg>.field:has(.field-error){margin-bottom:36px}
+  #search{padding-block:16px}
   #search .passengers{position:fixed;top:auto;right:auto;max-width:none;overflow-y:auto;overscroll-behavior:contain}
 }
 @media(max-width:480px){
