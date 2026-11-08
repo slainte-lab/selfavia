@@ -1,4 +1,3 @@
-import hashlib
 import json
 import sqlite3
 import threading
@@ -12,6 +11,7 @@ from fastapi import APIRouter, HTTPException
 
 from .key import RUNTIME, api_key
 from .models import Search
+from .selection import cache_id
 
 router = APIRouter()
 lock = threading.Lock()
@@ -42,13 +42,17 @@ def fetch(params, key):
     return offers
 
 
+def with_choices(body):
+    return {**body, 'offers':[dict(item, choice=cache_id(item)) for item in body['offers']]}
+
+
 @router.post('/api/flights/search')
 def search(request: Search):
     key = api_key()
     if not key:
         raise HTTPException(503, 'Поиск рейсов пока не подключён: нужен ключ SerpApi.')
     params = request.parameters()
-    digest = hashlib.sha256(json.dumps(params, sort_keys=True).encode()).hexdigest()
+    digest = cache_id(params)
     # One local worker: serialize cache misses and reserve quota before the HTTP call.
     RUNTIME.mkdir(exist_ok=True)
     with lock, closing(sqlite3.connect(RUNTIME / 'flights.sqlite3')) as db:
@@ -59,7 +63,7 @@ def search(request: Search):
             db.execute('DELETE FROM cache WHERE ts <= ?', (now-3600,))
             hit = db.execute('SELECT body FROM cache WHERE id=?', (digest,)).fetchone()
             if hit:
-                return json.loads(hit[0])
+                return with_choices(json.loads(hit[0]))
             db.execute('DELETE FROM calls WHERE ts <= ?', (now-31*86400,))
             total, recent = db.execute('SELECT count(*),count(*) FILTER (WHERE ts>?) FROM calls',
                                        (now-60,)).fetchone()
@@ -69,4 +73,4 @@ def search(request: Search):
         body = dict(offers=fetch(params, key), currency='RUB')
         with db:
             db.execute('INSERT OR REPLACE INTO cache VALUES (?,?,?)', (digest, time.time(), json.dumps(body)))
-        return body
+        return with_choices(body)

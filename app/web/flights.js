@@ -55,6 +55,7 @@ async function startFlightSearch(route, selected = []) {
             summary.append(details);
           }
           summary.append(price.cloneNode(true));
+          showCheckout(summary, route, itinerary);
           section.scrollIntoView({block:'start'});
         };
         card.append(choose);

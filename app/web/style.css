@@ -117,3 +117,9 @@ h2,h3,.air-datepicker-nav--title{font-weight:500}
 .flight-option p,.flight-details{white-space:pre-line;line-height:1.5}
 .flight-option p{flex:1 1 280px;margin:0}
 .flight-option button{border:1px solid var(--border);border-radius:8px;padding:8px 12px;background:var(--surface);color:var(--accent-text)}
+.checkout{margin-top:20px}
+.checkout button,.checkout a{display:inline-block;padding:10px 16px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);margin:0 8px 8px 0}
+.checkout form{max-width:36rem}
+.checkout label{display:grid;gap:4px;margin:8px 0}
+.checkout input{padding:10px;border:1px solid var(--border);border-radius:8px;font-size:16px}
+.checkout fieldset{margin:12px 0;padding:8px 16px;border:1px solid var(--border);border-radius:8px}
