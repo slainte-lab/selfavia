@@ -23,13 +23,13 @@
 #search .field:has([aria-invalid="true"]):focus-within{box-shadow:0 0 0 2px rgba(198,40,40,0.25)}
 #search .field-error{display:flex;align-items:flex-start;gap:6px;min-height:20px;position:absolute;top:100%;left:0;font-size:13px;line-height:16px;color:var(--error);margin:4px 0 0}
 #search .field-error svg{flex:none}
-#search .date-field:has(.field-error){position:relative}
+#search .date-field{position:relative}
 #search .suggestions{border:1px solid var(--border);background:var(--surface)}
 #search .suggestions button:focus,#search .suggestions button:hover{background:var(--selected)}
 #search .suggestions small{color:var(--text-muted)}
 #search .suggestions-empty{padding:11px 13px;color:var(--text-muted);font-size:13px}
 #search .picker{border-color:var(--border);background:var(--surface);box-shadow:var(--shadow)}
-#search .calendar{width:286px;padding:8px;max-width:calc(100vw - 48px)}
+#search .calendar{top:calc(100% + 8px);left:0;right:auto;width:286px;padding:8px;max-width:calc(100vw - 48px)}
 #search .air-datepicker{
 --adp-width:268px;
 --adp-font-family:var(--font-text);
@@ -70,8 +70,7 @@ border:0;width:100%;max-width:100%
 #search .field:has(input),#search .remove{grid-column:1}
 #search #travellers{width:100%;flex:auto}
 #search .searchline>.primary{width:100%;height:56px}
-#search .date-field{position:relative}
-#search .calendar{top:calc(100% + 8px);left:0;right:auto;width:286px;max-width:calc(100vw - 74px)}
+#search .calendar{max-width:calc(100vw - 74px)}
 #search .passengers{top:calc(100% + 8px);left:0;right:auto}
 }
 /* The page's global nav rule must not size the calendar navigation. */
@@ -109,6 +108,7 @@ border:0;width:100%;max-width:100%
   #search .searchline:not(:has(.remove)) #travellers{width:auto}
 }
 @media(min-width:769px) and (max-width:900px){
+  #search .leg:has(.remove) .calendar{left:auto;right:0}
   #search .searchline:not(:has(.remove)){grid-template-columns:minmax(140px,1fr) minmax(140px,1fr) minmax(200px,1.1fr) auto}
   #search .searchline:not(:has(.remove)) .field:has(>input){grid-column:span 2}
   #search .searchline:not(:has(.remove,.roundtrip)) .date-field{grid-column:span 2}
