@@ -61,7 +61,7 @@ async function showCheckout(summary, route, itinerary) {
             })});
           const body = await result.json();
           if (!result.ok) throw new Error(typeof body.detail === 'string' ? body.detail : 'Проверьте данные заказа.');
-          location.hash = 'order=' + body.token;
+          location.assign('/#order=' + body.token);
         } catch (error) {
           notice.textContent = error.message;
           save.disabled = false;

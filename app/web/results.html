@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Поиск рейсов · Selfavia</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Onest:wght@500;700&amp;display=swap">
+<link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/results.css"></head>
+<body class="results-page">
+<header><nav class="shell"><a class="brand" href="/" aria-label="Selfavia"><picture><source media="(max-width:700px)" srcset="/static/logo-light-compact.png"><img src="/static/logo-light.png" alt="Selfavia"></picture></a><a href="/">Новый поиск</a></nav></header>
+<main class="shell">
+<h1 id="heading">Поиск рейсов</h1><p id="context"></p>
+<div id="loading" hidden><div class="scanner" aria-hidden="true"><span>✈</span></div><h2 role="status">Ищем рейсы…</h2>
+<aside class="promo"><strong>Бронь для визы</strong><span id="fee"></span></aside></div>
+<p id="notice" role="status"></p>
+<div id="layout" hidden><details id="filters"><summary>Фильтры</summary><div id="groups"></div></details>
+<section><div class="toolbar"><strong id="count" role="status"></strong><select id="sort" aria-label="Сортировка"><option value="best">Рекомендуемые</option><option value="price">Сначала дешевле</option><option value="duration">Сначала быстрее</option></select></div><div id="cards"></div></section></div>
+<section id="detail" hidden><button id="back">К результатам</button><div id="itinerary"></div><div id="purchase"></div></section>
+</main>
+<script src="/static/flights.js"></script><script src="/static/checkout.js"></script><script src="/static/results.js"></script></body></html>
