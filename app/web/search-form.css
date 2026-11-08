@@ -9,10 +9,11 @@
 #search .field:hover{border-color:var(--border-strong)}
 #search .field:focus-within{border-color:var(--focus);outline:none;box-shadow:0 0 0 2px var(--focus)}
 #search .field>label{font-size:12px;line-height:14px;margin:0 0 2px;color:var(--text-muted)}
-#search .field>input,#search .date-toggle,#search #traveller-toggle{font-size:16px;line-height:20px;padding:0;color:var(--text);height:20px}
+#search .field>input,#search .date-toggle,#search #traveller-toggle{font-size:16px;font-weight:500;line-height:20px;padding:0;color:var(--text);height:20px}
 #search .field>:is(input,.date-toggle,#traveller-toggle){outline:none;box-shadow:none;border:0;background:transparent;border-radius:inherit}
 #search .field>input::placeholder{color:var(--text-muted)}
 #search .primary{height:56px;border-radius:8px}
+#search .searchline>.primary{flex:0 0 auto;min-width:148px;padding:0 28px;font-size:16px;font-weight:600;color:var(--on-accent);white-space:nowrap}
 #search .leg{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px;gap:8px}
 #search .leg.roundtrip{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 140px}
 #search .leg:has(.remove){grid-template-columns:minmax(0,1fr) minmax(0,1fr) 140px 24px}
@@ -31,7 +32,7 @@
 #search .calendar{width:286px;padding:8px;max-width:calc(100vw - 48px)}
 #search .air-datepicker{
 --adp-width:268px;
---adp-font-family:inherit;
+--adp-font-family:var(--font-text);
 --adp-background-color:var(--surface);
 --adp-border-color:var(--border);
 --adp-border-color-inner:var(--border);
