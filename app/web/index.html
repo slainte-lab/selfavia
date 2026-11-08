@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Onest:wght@500;700&amp;subset=cyrillic,latin&amp;display=swap">
 <link rel="stylesheet" href="/static/vendor/air-datepicker/air-datepicker.css"><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/search-form.css"></head>
 <body>
-<header><nav class="container"><a class="brand" href="/" aria-label="Selfavia — главная"><picture><source media="(max-width:700px)" srcset="/static/logo-light-compact.png"><img src="/static/logo-light.png" alt="Selfavia"></picture></a><a href="#how">Как это работает</a></nav>
+<header><nav class="container"><a class="brand" href="/" aria-label="Selfavia — главная"><picture><source media="(max-width:700px)" srcset="/static/logo-light-compact.png"><img src="/static/logo-light.png" alt="Selfavia"></picture></a><a href="#how-it-works">Как это работает</a></nav>
 <main class="container">
 <section class="hero" aria-labelledby="hero-title">
 <h1 id="hero-title">Бронь авиабилета для визы за 5 минут.</h1>
@@ -25,8 +25,22 @@
 <div class="actions"><button id="add" type="button" hidden>+ Добавить перелёт</button></div>
 <div id="message" role="status" aria-live="polite"></div>
 </form></main></header>
-<section class="container content"><div class="section-title" id="how"><h2>От маршрута до оформления</h2><span>Всё в одном месте</span></div>
-<div class="features"><div><span class="feature-icon">↗</span><h3>Выберите направление</h3><p>Город целиком или конкретный аэропорт. Подсказки понимают русский и английский.</p></div><div><span class="feature-icon">⇄</span><h3>Соберите свою поездку</h3><p>В одну сторону, туда-обратно или несколько городов в одном маршруте.</p></div><div><span class="feature-icon">▤</span><h3>Проверьте детали</h3><p>Все выбранные направления и даты собраны в общей сводке.</p></div></div>
+<section class="container" id="how-it-works" aria-labelledby="steps-title">
+<h2 id="steps-title">Три шага до билета или брони</h2>
+<ol class="steps">
+  <li>
+    <span class="step-number" aria-hidden="true">1</span>
+    <div><h3>Выберите рейс</h3><p>Укажите маршрут и даты, найдите рейсы и выберите подходящий вариант.</p></div>
+  </li>
+  <li>
+    <span class="step-number" aria-hidden="true">2</span>
+    <div><h3>Проверьте детали</h3><p>Сверьте маршрут, даты и данные пассажиров до оформления.</p></div>
+  </li>
+  <li>
+    <span class="step-number" aria-hidden="true">3</span>
+    <div><h3>Купите билет или оформите бронь</h3><p>Купите билет или оформите бронь для визовой заявки у нас.</p></div>
+  </li>
+</ol>
 <p class="status">Предварительная версия: доступны 8 городов. Подключение поиска рейсов — следующий этап.</p>
 <article id="selection" hidden><h2>Ваш маршрут</h2><div id="summary"></div><p>Форма готова к подключению поиска рейсов. Сейчас доступны выбор аэропортов и проверка маршрута.</p></article></section>
 <script src="/static/vendor/air-datepicker/air-datepicker.js"></script><script src="/static/pickers.js"></script><script src="/static/app.js"></script></body></html>

@@ -57,10 +57,32 @@ header>nav.container::after{
 .days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}.days span{font-size:10px;padding:7px 0}.days button{padding:0;height:32px;border:0;border-radius:50%;background:var(--surface);color:var(--text);font-size:12px}.days button:hover:not(:disabled){background:var(--selected)}.days button.selected{background:var(--selected);color:var(--text)}
 .passengers{width:310px}.passengers h3{font-size:14px;margin:0 0 20px}.counter{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:12px}.counter span{flex:1}.counter button{background:var(--bg-soft);color:var(--text);border:0;border-radius:6px;padding:4px 10px;font-size:19px}.passengers label{display:block;margin:12px 0;color:var(--text-muted);font-size:12px}.passengers select{width:100%;padding:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);margin-top:7px}.passengers .primary{width:100%;height:38px;background:var(--accent);color:var(--on-accent)}
 .container{max-width:1168px;margin:0 auto;padding-inline:24px}
-.content{padding-block:34px}.section-title{display:flex;align-items:center;justify-content:space-between}.section-title h2{font-size:20px;font-weight:500;letter-spacing:0}.section-title>span{font-size:12px;color:var(--text-muted)}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding:20px 0 25px}.features>div{border-top:1px solid var(--border);padding-top:18px}.feature-icon{color:var(--accent-text);font-size:22px}.features h3{font-size:14px;font-weight:500;margin:10px 0 7px}.features p{color:var(--text-muted);font-size:12px;line-height:1.65;margin:0;max-width:280px}.status{font-size:11px;color:var(--text-muted);border-top:1px solid var(--border);padding-top:16px}article{padding:26px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-top:25px}
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+}
+#how-it-works{scroll-margin-top:24px;padding-block:56px 48px;background:var(--bg)}
+#steps-title{margin:0 0 32px;font:500 clamp(1.5rem,3vw,1.75rem)/1.2 var(--font-display);color:var(--text)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;list-style:none;padding:0;margin:0}
+.steps li{border-top:1px solid var(--border);padding-top:18px}
+.step-number{
+  display:grid;place-items:center;width:36px;height:36px;margin-bottom:16px;
+  border:1px solid var(--border);border-radius:50%;background:var(--surface);
+  color:var(--accent-text);font:500 16px/1 var(--font-display)
+}
+.steps h3{margin:0 0 7px;font:500 20px/1.2 var(--font-display);color:var(--text)}
+.steps p{margin:0;max-width:32ch;font:400 15px/1.6 var(--font-text);color:var(--text-muted)}
+#how-it-works .status{margin:24px 0 0;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--text-muted)}
+@media(max-width:640px){
+  #steps-title{font-size:24px}
+  .steps{grid-template-columns:1fr;gap:24px}
+  .steps li{display:grid;grid-template-columns:36px 1fr;gap:16px;border:0;padding:0}
+  .steps li+li{border-top:1px solid var(--border);padding-top:24px}
+  .step-number{margin:0}
+}
+article{padding:26px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-top:25px}
 @media(max-width:768px){.container{padding-inline:16px}}
 @media(max-width:900px){.searchline{flex-wrap:wrap}#legs{flex-basis:100%}#travellers{flex:1}}
-@media(max-width:700px){header{padding-bottom:28px}nav{height:76px}.brand{width:188px}nav>a:last-child{font-size:12px}#search{padding:12px}.leg,.leg.roundtrip,.leg:has(.remove){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.field:has(input){grid-column:1/-1}.remove{grid-column:2}.searchline>.primary{height:58px}.calendar{width:calc(100vw - 74px);max-height:65vh;overflow:auto}.months{grid-template-columns:1fr}.passengers{width:min(310px,calc(100vw - 74px));left:0;right:auto}.features{grid-template-columns:1fr;gap:10px}.features p{max-width:none}.section-title>span{display:none}}
+@media(max-width:700px){header{padding-bottom:28px}nav{height:76px}.brand{width:188px}nav>a:last-child{font-size:12px}#search{padding:12px}.leg,.leg.roundtrip,.leg:has(.remove){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.field:has(input){grid-column:1/-1}.remove{grid-column:2}.searchline>.primary{height:58px}.calendar{width:calc(100vw - 74px);max-height:65vh;overflow:auto}.months{grid-template-columns:1fr}.passengers{width:min(310px,calc(100vw - 74px));left:0;right:auto}}
 
 /* Shared palette states; geometry and interaction code remain unchanged. */
 .primary:hover,.passengers .primary:hover{background:var(--accent-hover)}
