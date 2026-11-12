@@ -25,6 +25,7 @@ async function showCheckout(summary, route, itinerary) {
     const options = await response.json();
     const visa = checkoutElement('button', 'Бронь для визы' + (options.fee_rub ? ' · ' + rubles.format(options.fee_rub) + ' за заказ' : ''));
     visa.type = 'button';
+    visa.className = 'visa-primary';
     const buy = checkoutElement('a', 'Купить на Авиасейлс');
     buy.href = options.buy_url;
     buy.target = '_blank';

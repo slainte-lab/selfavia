@@ -42,3 +42,21 @@
 #back{margin-bottom:18px}
 #notice button{margin-inline-start:12px}
 @media(max-width:760px){.shell{padding-inline:16px}#layout{grid-template-columns:1fr;gap:16px}#filters{background:white;padding:14px;border:1px solid var(--border);border-radius:10px}.results-page .brand img{width:100%;position:static}.results-page .brand{width:160px;height:auto}.offer{grid-template-columns:1fr}.fare{border-left:0;border-top:1px dashed var(--border);flex-direction:row;justify-content:space-between}.flight-info,.fare{padding:14px}.timeline{gap:12px}}
+.itinerary-legs{min-width:0}
+.itinerary-legs>.flight-info+.flight-info{border-top:1px solid var(--border)}
+.leg-date{font-size:13px;color:var(--text-muted);margin:0 0 12px}
+.segment-list{margin-top:16px;border-top:1px solid var(--border);padding-top:16px;color:var(--text)}
+.segment .carrier{flex-wrap:wrap;margin-bottom:14px}
+.segment .carrier>span:last-child{color:var(--text-muted);font-weight:400}
+.segment-point{display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;position:relative;margin-left:8px;padding:0 0 18px 20px;border-left:1px solid var(--border-strong);align-items:start}
+.segment-point::before{content:'';position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--accent-text)}
+.segment-point:last-child{border-color:transparent;padding-bottom:0}
+.segment-point strong{font-size:16px}
+.segment-point small{display:block;margin-top:4px}
+.connection{background:var(--bg-soft);border-radius:6px;padding:10px 12px;margin:18px 0;font-size:13px}
+.checkout button.visa-primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent);font-weight:600;min-height:52px;padding:14px 22px}
+.checkout button.visa-primary:hover{background:var(--accent-hover)}
+.checkout button.visa-primary:active{background:var(--accent-active)}
+.checkout button.visa-primary:disabled{background:var(--selected);border-color:var(--border);color:var(--text-muted)}
+.checkout a{min-height:52px;padding:14px 18px;text-decoration:none}
+@media(max-width:480px){.segment-point{grid-template-columns:115px minmax(0,1fr);gap:10px}.checkout button.visa-primary,.checkout a{width:100%;text-align:center;margin-right:0}}

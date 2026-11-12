@@ -26,6 +26,30 @@ function carrierMark(flight) {
   return mark;
 }
 
+function segmentDetails(offer) {
+  const details = node('details', null, 'segments');
+  details.append(node('summary', 'Подробности перелёта'));
+  const body = node('div', null, 'segment-list');
+  offer.flights.forEach((flight, index) => {
+    if (index) body.append(node('div', 'Пересадка · ' + flight.origin, 'connection'));
+    const segment = node('div', null, 'segment');
+    const heading = node('div', null, 'carrier');
+    heading.append(carrierMark(flight), node('strong', flight.airline || ''), node('span', flight.number || ''));
+    segment.append(heading);
+    for (const [timestamp, airport] of [[flight.departure, flight.origin], [flight.arrival, flight.destination]]) {
+      const row = node('div', null, 'segment-point');
+      const when = node('div');
+      when.append(node('strong', timestamp.slice(11,16)),
+        node('small', dates.format(new Date(timestamp.slice(0,10) + 'T12:00:00'))));
+      row.append(when, node('span', places[airport] || airport));
+      segment.append(row);
+    }
+    body.append(segment);
+  });
+  details.append(body);
+  return details;
+}
+
 function card(offer, onChoose) {
   const first = offer.flights[0], last = offer.flights.at(-1);
   const item = node('div', null, 'offer');
@@ -49,9 +73,8 @@ function card(offer, onChoose) {
       point.append(node('small', dates.format(new Date(time.slice(0,10)+'T12:00:00'))));
     timeline.append(point);
   }
-  const segments = node('details', null, 'segments');
-  segments.append(node('summary', 'Подробности перелёта'), node('p', flightDescription(offer)));
-  info.append(carrier, timeline, segments);
+  info.append(node('p', dates.format(new Date(first.departure.slice(0,10)+'T12:00:00')), 'leg-date'),
+    carrier, timeline, segmentDetails(offer));
   const fare = node('div', null, 'fare');
   fare.append(node('strong', priceOf(offer)));
   if (onChoose) {
@@ -60,6 +83,24 @@ function card(offer, onChoose) {
     fare.append(select);
   }
   item.append(info, fare);
+  return item;
+}
+
+
+function itineraryCard(itinerary, onChoose) {
+  const item = node('div', null, 'offer itinerary-offer');
+  const legs = node('div', null, 'itinerary-legs');
+  for (const offer of itinerary) {
+    legs.append(card(offer, null).querySelector('.flight-info'));
+  }
+  const fare = node('div', null, 'fare');
+  fare.append(node('small', 'Стоимость билетов'), node('strong', priceOf(itinerary.at(-1))));
+  if (onChoose) {
+    const select = node('button', 'Выбрать рейс');
+    select.onclick = onChoose;
+    fare.append(select);
+  }
+  item.append(legs, fare);
   return item;
 }
 
@@ -94,7 +135,7 @@ function renderOffers() {
   cards.replaceChildren();
   for (const o of list) {
     const available = selected.length + 1 === route.legs.length || o.token;
-    cards.append(card(o, available ? () => advance([...selected,o]) : null));
+    cards.append(itineraryCard([...selected,o], available ? () => advance([...selected,o]) : null));
   }
   if (!list.length) cards.append(node('p', offers.length ? 'По выбранным фильтрам рейсов нет.' : 'На эти даты рейсы не найдены.'));
 }
@@ -111,7 +152,7 @@ async function display() {
     byId('heading').textContent = 'Ваш маршрут';
     byId('context').textContent = '';
     byId('detail').hidden = false;
-    byId('itinerary').replaceChildren(...selected.map(o => card(o, null)));
+    byId('itinerary').replaceChildren(itineraryCard(selected, null));
     byId('purchase').replaceChildren();
     showCheckout(byId('purchase'), route, selected);
     return;
